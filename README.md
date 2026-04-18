@@ -1,6 +1,6 @@
 # discord-api-scheduler
 
-This is a REST API for scheduling persistent reminders on behalf of Discord bots. Bots register a timed reminder with a delivery destination and the API fires it at the specified time, even if the bot has restarted in the meantime. Reminders are stored in a SQLite database and restored automatically on service startup.
+This is a REST API for scheduling persistent reminders on behalf of Discord bots. Bots register a timed reminder with a delivery destination and the API fires it at the specified time, even if the bot has restarted in the meantime. Reminders are stored in a SQLite database and restored automatically on service startup. This project is based on the [discord-api-template](https://github.com/Lempki/discord-api-template) repository, which provides the core architecture.
 
 ## Endpoints
 
