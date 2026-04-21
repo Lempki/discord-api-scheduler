@@ -1,17 +1,17 @@
+import os
+
 import pytest
 from fastapi.testclient import TestClient
 
-from scheduler_api.config import get_settings, Settings
+os.environ.setdefault("DISCORD_API_SECRET", "test-secret")
+os.environ.setdefault("SCHEDULER_DB_PATH", ":memory:")
+
+from scheduler_api.main import app  # noqa: E402
 
 
-def _override_settings():
-    return Settings(discord_api_secret="test-secret", scheduler_db_path=":memory:")
-
-
-# Lifespan initialises DB + scheduler, so use TestClient as context manager
+# Lifespan initialises DB + scheduler; use TestClient as context manager
+# so each test gets a fresh lifespan (and a fresh in-memory DB).
 def _make_client():
-    from scheduler_api.main import app
-    app.dependency_overrides[get_settings] = _override_settings
     return TestClient(app)
 
 
