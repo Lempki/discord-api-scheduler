@@ -122,3 +122,10 @@ discord-api-scheduler/
 ├── pyproject.toml
 └── .env.example
 ```
+
+## Running tests
+
+```bash
+pip install -e ".[dev]"
+pytest
+```
