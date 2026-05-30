@@ -108,7 +108,7 @@ Alternatively, you can run the API as a Docker container.
    docker-compose up --build
    ```
 
-The API listens on port `8004` by default. The Docker Compose configuration creates a named volume for the SQLite database so that reminders persist across container restarts.
+The container runs on port `8000` internally. Docker Compose maps it to port `8004` on the host. The Docker Compose configuration also creates a named volume for the SQLite database so that reminders persist across container restarts.
 
 ## Configuration
 
