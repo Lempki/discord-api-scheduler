@@ -3,13 +3,19 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from .config import Settings, get_settings
 
-_bearer = HTTPBearer()
+_bearer = HTTPBearer(auto_error=False)
 
 
 async def require_auth(
-    credentials: HTTPAuthorizationCredentials = Security(_bearer),
+    credentials: HTTPAuthorizationCredentials | None = Security(_bearer),
     settings: Settings = Depends(get_settings),
 ) -> None:
+    if credentials is None:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authenticated.",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
     if credentials.credentials != settings.discord_api_secret:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
